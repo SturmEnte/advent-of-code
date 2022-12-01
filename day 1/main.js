@@ -24,15 +24,22 @@ fs.readFile(join(__dirname, "input.txt"), "utf8", (err, data) => {
 		elfs[i] += Number(data);
 	}
 
-	// Printing the elf with the most calories
-	let most = 0;
-	elfs.forEach((elf) => {
-		if (elf > most) {
-			most = elf;
-		}
+	// Sort the array
+	elfs = elfs.sort((a, b) => {
+		return b - a;
 	});
 
+	// Print psrt 1
 	console.log(
-		"The elf carrying the most calories is carrying " + most + " calories"
+		"The elf carrying the most calories is carrying",
+		elfs[0],
+		"calories"
+	);
+
+	// Print part 2
+	console.log(
+		"The top three elfs combined carry",
+		elfs[0] + elfs[1] + elfs[2],
+		"calories"
 	);
 });
