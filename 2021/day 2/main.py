@@ -3,7 +3,6 @@ depth = 0
 
 file = open("input.txt")
 split = file.read().split("\n")
-split.pop() # Removes the last empty line
 
 # Part 1
 for input in split:

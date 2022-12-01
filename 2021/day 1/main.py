@@ -5,7 +5,6 @@ increased = -1
 
 file = open("input.txt", "r")
 split = file.read().split("\n")
-split.pop()
 
 # Part 1
 last_height = 0
