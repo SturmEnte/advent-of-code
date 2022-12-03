@@ -33,4 +33,37 @@ for input in inputs:
         elif op == "C": # Scissors
             score += 3
 
-print("Total score:", score)
+print("Total score (Strategy 1):", score)
+
+score = 0
+
+for input in inputs:
+    op = input.split(" ")[0]
+    me = input.split(" ")[1]
+
+    if me == "X":   # Lose
+        score += 0
+        if op == "A":   # Rock
+            score += 3
+        elif op == "B": # Paper
+            score += 1
+        elif op == "C": # Scissors
+            score += 2
+    elif me == "Y": # Draw
+        score += 3
+        if op == "A":   # Rock
+            score += 1
+        elif op == "B": # Paper
+            score += 2
+        elif op == "C": # Scissors
+            score += 3
+    elif me == "Z": # Win
+        score += 6
+        if op == "A":   # Rock
+            score += 2
+        elif op == "B": # Paper
+            score += 3
+        elif op == "C": # Scissors
+            score += 1
+
+print("Total score (Strategy 2):", score)
