@@ -49,7 +49,6 @@ while i < len(inputs) / 3:
                     priority += char_to_priority(x)
                     a = True
                     break
-
-i += 1
+    i += 1
 
 print("Priority", priority)
