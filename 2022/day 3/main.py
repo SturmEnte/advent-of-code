@@ -28,6 +28,7 @@ for input in inputs:
 
 print("Priority", priority)
 
+# Part 2
 priority = 0
 
 i = 0
