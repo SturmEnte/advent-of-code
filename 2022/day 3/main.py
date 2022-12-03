@@ -50,6 +50,6 @@ while i < len(inputs) / 3:
                     a = True
                     break
 
-    i += 1
+i += 1
 
 print("Priority", priority)
