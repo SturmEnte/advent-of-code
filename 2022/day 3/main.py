@@ -27,3 +27,28 @@ for input in inputs:
             break
 
 print("Priority", priority)
+
+priority = 0
+
+i = 0
+while i < len(inputs) / 3:
+    mem1 = inputs[i * 3]
+    mem2 = inputs[i * 3 + 1]
+    mem3 = inputs[i * 3 + 2]
+
+    a = False
+
+    for x in mem1:
+        if a == True: break
+        for y in mem2:
+            if a == True: break
+            for z in mem3:
+                if x == y and y == z:
+                    print("Group item:", x)
+                    priority += char_to_priority(x)
+                    a = True
+                    break
+
+    i += 1
+
+print("Priority", priority)
