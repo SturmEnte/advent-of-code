@@ -1,6 +1,7 @@
 file = open("input.txt", "r")
 inputs = file.read().split("\n")
 
+# Part 1
 fully_contained = 0
 
 for input in inputs:
@@ -14,13 +15,12 @@ for input in inputs:
 
     if start1 <= start2 and end1 >= end2:
         fully_contained += 1
-        print(start1, end1, start2, end2)
     elif start2 <= start1 and end2 >= end1:
         fully_contained += 1
-        print(start1, end1, start2, end2)
 
-print("Fully contained:",fully_contained)
+print("Fully contained:", fully_contained)
 
+# Part 2
 overlaping = 0
 
 for input in inputs:
@@ -37,4 +37,4 @@ for input in inputs:
     elif end2 >= start1 and end2 <= end1:
         overlaping += 1
 
-print("Overlaping:",overlaping)
+print("Overlaping:", overlaping)
