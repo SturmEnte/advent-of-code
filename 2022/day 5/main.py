@@ -39,6 +39,8 @@ for i, line in enumerate(crate_lines):
 print("Stacks:", stacks)
 print("Crates:", crates)
 
+# Part 1
+
 cm9000_crates = copy.deepcopy(crates)
 
 for move in moves:
@@ -53,6 +55,8 @@ for crate in cm9000_crates:
     solution += crate[0]
 
 print("Solution for the CrateMover 9000:", solution)
+
+# Part 2
 
 cm9001_crates = copy.deepcopy(crates)
 
