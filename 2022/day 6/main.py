@@ -24,7 +24,7 @@ for i, char in enumerate(data):
             if last_4_chars[2] == last_4_chars[j + 3]:
                 received = False
 
-    if x == True:
+    if received == True:
         print("The first start-of-packet marker is received after", i + 1, "bytes")
         break
 else:
