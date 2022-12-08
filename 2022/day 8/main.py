@@ -65,7 +65,7 @@ for x in range(width):
         vdb = 0
 
         xi = x - 1
-        while xi >= 0:                     # Trees left of the tree
+        while xi >= 0:                          # Trees left of the tree
             vdl += 1
             if grid[xi][y] >= tree:
                 break
@@ -75,7 +75,7 @@ for x in range(width):
             if grid[x + xi + 1][y] >= tree:
                 break
         yi = y - 1
-        while yi >= 0:                     # Trees above the tree
+        while yi >= 0:                          # Trees above the tree
             vdt += 1
             if grid[x][yi] >= tree:
                 break
