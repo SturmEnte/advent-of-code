@@ -30,16 +30,16 @@ for x in range(width):
         visible_t = True
         visible_b = True
 
-        for xi in range(x): # Trees left of the tree
+        for xi in range(x):                     # Trees left of the tree
             if grid[xi][y] >= tree:
                 visible_l = False
-        for xi in range(len(grid) - x - 1): # Trees left of the tree
+        for xi in range(len(grid) - x - 1):     # Trees left of the tree
             if grid[x + xi + 1][y] >= tree:
                 visible_r = False
-        for yi in range(y): # Trees above the tree
-                if grid[x][yi] >= tree:
-                    visible_t = False
-        for yi in range(len(grid[0]) - y - 1): # Trees below the tree
+        for yi in range(y):                     # Trees above the tree
+            if grid[x][yi] >= tree:
+                visible_t = False
+        for yi in range(len(grid[0]) - y - 1):  # Trees below the tree
             if grid[x][y + yi + 1] >= tree:
                 visible_b = False
         
@@ -52,3 +52,42 @@ for x in range(width):
 print("Visible trees:", visible_trees)
 print("Invisible trees:", invisible_trees)
 print("Trees:", invisible_trees + visible_trees)
+
+# Part 2
+hss = 0
+
+for x in range(width):
+    for y in range(height):
+        tree = grid[x][y]
+        vdl = 0
+        vdr = 0
+        vdt = 0
+        vdb = 0
+
+        xi = x - 1
+        while xi >= 0:                     # Trees left of the tree
+            vdl += 1
+            if grid[xi][y] >= tree:
+                break
+            xi -= 1
+        for xi in range(len(grid) - x - 1):     # Trees left of the tree
+            vdr += 1
+            if grid[x + xi + 1][y] >= tree:
+                break
+        yi = y - 1
+        while yi >= 0:                     # Trees above the tree
+            vdt += 1
+            if grid[x][yi] >= tree:
+                break
+            yi -= 1
+        for yi in range(len(grid[0]) - y - 1):  # Trees below the tree
+            vdb += 1
+            if grid[x][y + yi + 1] >= tree:
+                break
+        
+        scenic_score = vdl * vdr * vdt * vdb
+
+        if hss < scenic_score:
+            hss = scenic_score
+
+print("Highest scenic score:", hss)
