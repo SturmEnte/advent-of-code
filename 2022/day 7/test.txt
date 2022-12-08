@@ -1,0 +1,12 @@
+$ cd /
+$ ls
+dir o1
+dir o2
+100000 d.1
+$ cd o1
+$ ls
+1000 lccnhn
+$ cd ..
+$ cd o2
+$ ls
+5000 d.2
