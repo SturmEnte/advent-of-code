@@ -1,5 +1,6 @@
 file = open("input.txt")
 
+# Part 1
 hx = 0
 hy = 0
 
@@ -22,13 +23,10 @@ def touching_head(cx, cy):
             y += 1
     return False
 
-z = 0 # Debugging var
-
 def update_tail():
     touching = touching_head(tx, ty)
 
     if touching == True:
-        print(z, "n touching")
         return (0, 0)
 
     nx = 0
@@ -39,15 +37,11 @@ def update_tail():
             nx = 1
         elif tx - 2 == hx:
             nx = -1
-        else:
-            print("Imposible", hx, hy, tx, ty)
     elif tx == hx:
         if ty + 2 == hy:
             ny = 1
         elif ty - 2 == hy:
             ny = -1
-        else:
-            print("Imposible", hx, hy, tx, ty)
     else:
         if touching_head(tx + 1, ty + 1):
             nx = 1
@@ -63,7 +57,6 @@ def update_tail():
             ny = -1
 
     head_visits.append((nx + tx, ny + ty))
-    print(z, "n", tx + nx, ty + ny, hx, hy)
     return (nx, ny)
 
 for j, move in enumerate(file.read().split("\n")):
@@ -97,10 +90,6 @@ for j, move in enumerate(file.read().split("\n")):
         else:
             print("Unknown move:", move)
 
-print("")
-print(head_visits)
-print("")
-
 different_positions = 0
 counted = []
 for pos in head_visits:
@@ -108,6 +97,6 @@ for pos in head_visits:
         counted.append(pos)
         different_positions += 1
 
-print("Head:", hx, hy)
-print("Tail:", tx, ty)
+print("Head end position:", hx, hy)
+print("Tail end position:", tx, ty)
 print("The head visited", different_positions, "different positions")
