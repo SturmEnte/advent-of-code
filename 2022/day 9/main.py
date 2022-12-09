@@ -1,4 +1,5 @@
 file = open("input.txt")
+input = file.read()
 
 # Part 1
 hx = 0
@@ -59,11 +60,9 @@ def update_tail():
     head_visits.append((nx + tx, ny + ty))
     return (nx, ny)
 
-for j, move in enumerate(file.read().split("\n")):
-    z = j * 10
+for move in input.split("\n"):
     direction = move.split()[0]
     amount = int(move.split()[1])
-    print(direction, amount)
 
     for i in range(amount):
         z += 1
@@ -100,3 +99,5 @@ for pos in head_visits:
 print("Head end position:", hx, hy)
 print("Tail end position:", tx, ty)
 print("The head visited", different_positions, "different positions")
+
+# Part 2
