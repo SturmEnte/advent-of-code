@@ -65,7 +65,6 @@ for move in input.split("\n"):
     amount = int(move.split()[1])
 
     for i in range(amount):
-        z += 1
         if direction == "U":
             hy += 1
             pos = update_tail()
@@ -98,6 +97,103 @@ for pos in head_visits:
 
 print("Head end position:", hx, hy)
 print("Tail end position:", tx, ty)
-print("The head visited", different_positions, "different positions")
+print("The tail visited", different_positions, "different positions")
 
 # Part 2
+knots = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
+last_knot_positions = [(0, 0)]
+z = 0
+
+def touches_knot(knot, m_knot):
+    x = -1
+    y = -1
+    for j in range(9):
+        if knot[0] + x == m_knot[0] and knot[1] + y == m_knot[1]:
+            return True
+        
+        x += 1
+        if x == 2:
+            x = -1
+            y += 1
+    return False
+
+def update_knots():
+    global knots, z
+    
+    for i in range(1, 10):
+        z += i
+        knot = knots[i]
+        m_knot = knots[i - 1]
+
+        # Check if knot touches knot that comes before it
+        if touches_knot(knot, m_knot) == True:
+            continue
+
+        # Move the knot
+        if knot[1] == m_knot[1]:
+            if knot[0] + 2 == m_knot[0]:
+                knot[0] += 1
+            elif knot[0] - 2 == m_knot[0]:
+                knot[0] -= 1
+            else:
+                print(z, "wtf1", knot, m_knot)
+        elif knot[0] == m_knot[0]:
+            if knot[1] + 2 == m_knot[1]:
+                knot[1] += 1
+            elif knot[1] - 2 == m_knot[1]:
+                knot[1] -= 1
+            else:
+                print(z, "wtf2", knot, m_knot)
+        else:
+            if touches_knot([knot[0] + 1, knot[1] + 1], m_knot):
+                knot[0] += 1
+                knot[1] += 1
+            elif touches_knot([knot[0] + 1, knot[1] - 1], m_knot):
+                knot[0] += 1
+                knot[1] -= 1
+            elif touches_knot([knot[0] - 1, knot[1] + 1], m_knot):
+                knot[0] -= 1
+                knot[1] += 1
+            else:
+                knot[0] -= 1
+                knot[1] -= 1
+
+        if i == 9:
+            last_knot_positions.append((knot[0], knot[1]))
+        knots[i] = knot
+
+
+for j, move in enumerate(input.split("\n")):
+    z = 100 * j
+    direction = move.split()[0]
+    amount = int(move.split()[1])
+
+    # print(direction)
+    for i in range(amount):
+        # print(i)
+        z = j * 100 +i * 10
+        if direction == "U":
+            knots[0][1] += 1
+            update_knots()
+        elif direction == "D":
+            knots[0][1] -= 1
+            update_knots()
+        elif direction == "L":
+            knots[0][0] -= 1
+            update_knots()
+        elif direction == "R":
+            knots[0][0] += 1
+            update_knots()
+        else:
+            print("Unknown move:", move)
+
+# print(knots)
+# print(last_knot_positions)
+different_positions = 0
+counted = []
+for pos in last_knot_positions:
+    if pos not in counted:
+        counted.append(pos)
+        different_positions += 1
+
+print("The last knot was at", different_positions, "positions")
