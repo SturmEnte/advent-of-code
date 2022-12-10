@@ -45,6 +45,7 @@ x = 0
 y = 0
 
 x_register = 1
+c = 1
 
 screen = []
 
@@ -53,9 +54,6 @@ for _ in range(height):
 
 def cycle(n):
     global x, y, screen, x_register
-
-    # Start of cycle
-
 
     # During cycle
     if x == x_register - 1 or x == x_register or x == x_register + 1:
@@ -76,8 +74,6 @@ def cycle(n):
             return True
     return False
 
-c = 1
-
 for line in input.split("\n"):
     cmd = line.split()[0]
 
@@ -94,7 +90,7 @@ for line in input.split("\n"):
             break
         c += 1
 
-print(x, y, c)
+print("x:", x, "y:", y, "cyles:", c)
 
 print("---Image---")
 for row in screen:
