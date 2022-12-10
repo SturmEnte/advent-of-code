@@ -95,6 +95,7 @@ for pos in head_visits:
         counted.append(pos)
         different_positions += 1
 
+print("---Part 1---")
 print("Head end position:", hx, hy)
 print("Tail end position:", tx, ty)
 print("The tail visited", different_positions, "different positions")
@@ -102,15 +103,13 @@ print("The tail visited", different_positions, "different positions")
 # Part 2
 knots = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
 last_knot_positions = [(0, 0)]
-z = 0
 
 def touches_knot(knot, m_knot):
     x = -1
     y = -1
-    for j in range(9):
+    for _ in range(9):
         if knot[0] + x == m_knot[0] and knot[1] + y == m_knot[1]:
             return True
-        
         x += 1
         if x == 2:
             x = -1
@@ -118,10 +117,9 @@ def touches_knot(knot, m_knot):
     return False
 
 def update_knots():
-    global knots, z
+    global knots
     
     for i in range(1, 10):
-        z += i
         knot = knots[i]
         m_knot = knots[i - 1]
 
@@ -136,14 +134,14 @@ def update_knots():
             elif knot[0] - 2 == m_knot[0]:
                 knot[0] -= 1
             else:
-                print(z, "wtf1", knot, m_knot)
+                print("Imposible", knot, m_knot)
         elif knot[0] == m_knot[0]:
             if knot[1] + 2 == m_knot[1]:
                 knot[1] += 1
             elif knot[1] - 2 == m_knot[1]:
                 knot[1] -= 1
             else:
-                print(z, "wtf2", knot, m_knot)
+                print("Imposible", knot, m_knot)
         else:
             if touches_knot([knot[0] + 1, knot[1] + 1], m_knot):
                 knot[0] += 1
@@ -163,15 +161,11 @@ def update_knots():
         knots[i] = knot
 
 
-for j, move in enumerate(input.split("\n")):
-    z = 100 * j
+for move in input.split("\n"):
     direction = move.split()[0]
     amount = int(move.split()[1])
 
-    # print(direction)
-    for i in range(amount):
-        # print(i)
-        z = j * 100 +i * 10
+    for _ in range(amount):
         if direction == "U":
             knots[0][1] += 1
             update_knots()
@@ -187,8 +181,6 @@ for j, move in enumerate(input.split("\n")):
         else:
             print("Unknown move:", move)
 
-# print(knots)
-# print(last_knot_positions)
 different_positions = 0
 counted = []
 for pos in last_knot_positions:
@@ -196,4 +188,5 @@ for pos in last_knot_positions:
         counted.append(pos)
         different_positions += 1
 
+print("---Part 2---")
 print("The last knot was at", different_positions, "positions")
