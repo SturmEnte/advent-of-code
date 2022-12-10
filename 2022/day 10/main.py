@@ -61,8 +61,6 @@ def cycle(n):
     else:
         screen[y].append(".")
 
-    print(x_register)
-
     # End of cycle
     x_register += n
 
