@@ -1,10 +1,34 @@
-import array
+from copy import deepcopy
 
 file = open("input.txt", "r")
+input = file.read()
 
-# Part 1
-rounds = 20
+def calc_worry_level(old, operation):
+    one = 0
+    two = 0
+    operator = ""
+    for i, part in enumerate(operation.split(" ")):
+        if i == 0:
+            if part == "old":
+                one = old
+            else:
+                one = int(part)
+        elif i == 1:
+            operator = part
+        elif i == 2:
+            if part == "old":
+                two = old
+            else:
+                two = int(part)
 
+    if operator == "*":
+        return one * two
+    elif operator == "+":
+        return one + two
+    else:
+        print(one, operator, two)
+
+# Parse input
 monkeys = [{
             "items": [],
             "operation": "",
@@ -14,7 +38,7 @@ monkeys = [{
         }]
 
 monkey = 0
-for line in file.read().split("\n"):
+for line in input.split("\n"):
     if line == "":
         monkey += 1
         monkeys.append({
@@ -45,32 +69,10 @@ for line in file.read().split("\n"):
     elif parts[1] == "false:":
         monkeys[monkey]["false"] = int(parts[5])
 
-def calc_worry_level(old, operation):
-    one = 0
-    two = 0
-    operator = ""
-    for i, part in enumerate(operation.split(" ")):
-        if i == 0:
-            if part == "old":
-                one = old
-            else:
-                one = int(part)
-        elif i == 1:
-            operator = part
-        elif i == 2:
-            if part == "old":
-                two = old
-            else:
-                two = int(part)
+monkeys_copy = deepcopy(monkeys)
 
-    if operator == "*":
-        return one * two
-    elif operator == "+":
-        return one + two
-    else:
-        print(one, operator, two)
-    print(one, operator, two)
-
+# Part 1
+rounds = 20
 inspects = []
 
 for _ in range(len(monkeys)):
@@ -90,8 +92,37 @@ for round in range(rounds):
 
         monkey["items"] = []
 
-for monkey in monkeys: print(monkey)
+inspects = sorted(inspects)
+
+print("Monkey business (Part 1):", inspects[len(inspects) - 1] * inspects[len(inspects) - 2])
+
+# Part 2
+monkeys = monkeys_copy
+
+rounds = 10000
+inspects = []
+
+divider = 1
+for monkey in monkeys:
+    divider = divider * monkey["divisible_by"]
+
+for _ in range(len(monkeys)):
+    inspects.append(0)
+
+for round in range(rounds):
+    for i, monkey in enumerate(monkeys):
+        for item in monkey["items"]:
+            inspects[i] += 1
+            worry_level = item
+            worry_level = calc_worry_level(item, monkey["operation"]) % divider
+        
+            if worry_level % monkey["divisible_by"] > 0:
+                monkeys[monkey["false"]]["items"].append(worry_level)
+            else:
+                monkeys[monkey["true"]]["items"].append(worry_level)
+
+        monkey["items"] = []
 
 inspects = sorted(inspects)
 
-print("Monkey business:", inspects[len(inspects) - 1] * inspects[len(inspects) - 2])
+print("Monkey business (Part 2):", inspects[len(inspects) - 1] * inspects[len(inspects) - 2])
