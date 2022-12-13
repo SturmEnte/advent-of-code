@@ -3,20 +3,6 @@ from json import loads
 
 file = open("input.txt", "r")
 input = file.read()
-            
-pairs = [[]]
-
-pair_i = 0
-i = 0
-for line in input.split("\n"):
-    if line == "":
-        pair_i += 1
-        i = 0
-        pairs.append([])
-        continue
-    pairs[pair_i].append([])
-    pairs[pair_i][i] = loads(line)
-    i += 1
 
 def compare(pair):
     left_a = pair[0]
@@ -53,6 +39,22 @@ def compare(pair):
         return False
 
     return None
+
+# Part 1
+print("---Part 1---")
+pairs = [[]]
+
+pair_i = 0
+i = 0
+for line in input.split("\n"):
+    if line == "":
+        pair_i += 1
+        i = 0
+        pairs.append([])
+        continue
+    pairs[pair_i].append([])
+    pairs[pair_i][i] = loads(line)
+    i += 1
         
 right_pairs = 0
 for i, pair in enumerate(pairs):
@@ -60,3 +62,39 @@ for i, pair in enumerate(pairs):
         right_pairs += i + 1
 
 print("Right pairs:", right_pairs)
+
+# Part 2
+print("---Part 2---")
+
+packets = [[[2]], [[6]]]
+
+for line in input.split("\n"):
+    if line != "":
+        packets.append(loads(line))
+
+sorted = False
+
+i = 0
+while not sorted:
+    if compare([deepcopy(packets[i]), deepcopy(packets[i + 1])]) == False:
+        packets.insert(i, packets.pop(i + 1))
+        i = 0
+    else:
+        i += 1
+    
+    if i == len(packets) - 1:
+        sorted = True
+        break
+
+for p in packets: print(p)
+
+d_packet2 = 1
+d_packet6 = 1
+
+for i, packet in enumerate(packets):
+    if packet == [[2]]:
+        d_packet2 += i
+    elif packet == [[6]]:
+        d_packet6 += i
+
+print("Decoder key:", d_packet2 * d_packet6)
