@@ -183,6 +183,6 @@ while not done:
         tiles[sx][sy] = 2
         break
 
-print_tiles(width, 0, lowest_y + 3)
+print_tiles(width - 200, 200, lowest_y + 3)
 
 print("Sand particles:", sand_particles)
