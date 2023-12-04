@@ -49,9 +49,9 @@ for y, ye in enumerate(list):
 
         add = False
 
-        if x-1 >= 0 and not ye[x - 1].isdigit() and ye[x - 1] != ".":
+        if not ye[x - 1].isdigit() and ye[x - 1] != ".":
             add = True
-        elif x+1 <= len(ye) and not ye[x + number_length].isdigit() and ye[x + number_length] != ".":
+        elif not ye[x + number_length].isdigit() and ye[x + number_length] != ".":
             add = True
 
         for entry in list[y - 1][x-1:x+number_length]:
