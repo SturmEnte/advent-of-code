@@ -64,7 +64,8 @@ for y, ye in enumerate(list):
                 add = True
                 break
 
-        result += number
+        if add:
+            result += number
             
 
 print(f"Result: {result}")
