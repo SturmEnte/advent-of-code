@@ -69,5 +69,38 @@ for y, ye in enumerate(list):
             print(f"{Back.GREEN}Number: {number} | Length: {number_length}{Style.RESET_ALL}")
         else:
             print(f"{Back.RED}Number: {number} | Length: {number_length}{Style.RESET_ALL}")
-            
+
+print(list)            
+print(f"Result: {result}")
+
+print("---Part 2---")
+result = 0
+
+list = []
+
+for i, line in enumerate(input):
+    
+    if i == 0 or line == "":
+        newLine = []
+        for _ in range(0, len(line)):
+            newLine.append(".")
+        list.append(newLine)
+
+    if line == "":
+        break
+
+    newLine = ["."]
+    
+    for symbol in line:
+        newLine.append(symbol)
+
+    newLine.append(".")
+
+    list.append(newLine)
+
+for y, ye in enumerate(list):
+    for x, xe in enumerate(ye):
+        if xe == "*":
+            pass
+
 print(f"Result: {result}")
