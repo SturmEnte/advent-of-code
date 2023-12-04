@@ -3,6 +3,8 @@ from colorama import Back, Style
 file = open("input.txt", "r")
 inputs = file.read().split("\n")
 
+# Part 1
+print("---Part 1---")
 result = 0
 
 for line in inputs:
@@ -40,5 +42,11 @@ for line in inputs:
         print(Back.GREEN + f"{id}: r: {red} g: {green} b: {blue}"+ Style.RESET_ALL)
     else:
         print(Back.RED + f"{id}: r: {red} g: {green} b: {blue}"+ Style.RESET_ALL)
+
+print(f"Result: {result}")
+
+# Part 2
+print("---Part 2---")
+result = 0
 
 print(f"Result: {result}")
