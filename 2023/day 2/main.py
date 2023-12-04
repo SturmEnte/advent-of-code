@@ -91,10 +91,4 @@ for line in inputs:
 
     result += lred * lgreen * lblue
 
-    # if possible:
-    #     result += id
-    #     print(Back.GREEN + f"{id}: r: {red} g: {green} b: {blue}"+ Style.RESET_ALL)
-    # else:
-    #     print(Back.RED + f"{id}: r: {red} g: {green} b: {blue}"+ Style.RESET_ALL)
-
 print(f"Result: {result}")
