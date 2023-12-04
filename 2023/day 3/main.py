@@ -1,3 +1,5 @@
+from colorama import Back, Style
+
 file = open("input.txt", "r")
 input = file.read().split("\n")
 
@@ -45,8 +47,6 @@ for y, ye in enumerate(list):
 
         number = int(number_str)
 
-        print(f"Number: {number} | Length: {number_length}")
-
         add = False
 
         if not ye[x - 1].isdigit() and ye[x - 1] != ".":
@@ -54,18 +54,20 @@ for y, ye in enumerate(list):
         elif not ye[x + number_length].isdigit() and ye[x + number_length] != ".":
             add = True
 
-        for entry in list[y - 1][x-1:x+number_length]:
+        for entry in list[y - 1][x-1:x+number_length+1]:
             if not entry.isdigit() and entry != ".":
                 add = True
                 break
         
-        for entry in list[y + 1][x-1:x+number_length]:
+        for entry in list[y + 1][x-1:x+number_length+1]:
             if not entry.isdigit() and entry != ".":
                 add = True
                 break
 
         if add:
             result += number
+            print(f"{Back.GREEN}Number: {number} | Length: {number_length}{Style.RESET_ALL}")
+        else:
+            print(f"{Back.RED}Number: {number} | Length: {number_length}{Style.RESET_ALL}")
             
-
 print(f"Result: {result}")
