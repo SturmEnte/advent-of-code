@@ -100,7 +100,20 @@ for i, line in enumerate(input):
 
 for y, ye in enumerate(list):
     for x, xe in enumerate(ye):
-        if xe == "*":
-            pass
+        if xe != "*":
+            continue
+        
+        numbers = []
+
+        if list[y][x - 1].isdigit():
+            n = 1
+            
+            while list[y][x - (n + 1)].isdigit():
+                n += 1
+            
+            digits = list[y][x - 1]
+
+        if len(numbers) != 2:
+            continue
 
 print(f"Result: {result}")
