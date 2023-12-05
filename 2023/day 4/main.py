@@ -25,6 +25,15 @@ for card in input:
             continue
         numbers.append(int(number))
 
-    print(numbers)
+    value = 0
+
+    for number in numbers:
+        if number in winning_numbers:
+            if value == 0:
+                value = 1
+            else:
+                value *= 2
+
+    result += value
 
 print(f"Result: {result}")
