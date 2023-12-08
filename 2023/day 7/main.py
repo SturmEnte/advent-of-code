@@ -1,6 +1,6 @@
 from colorama import Back, Style
 
-file = open("custom-input.txt", "r")
+file = open("example-input.txt", "r")
 input = file.read().split("\n")
 
 # Part 1
@@ -96,7 +96,11 @@ for line in input:
     if kind == 5:
         rating = 7
 
-    print(rating)
+    hands.append((rating, cards, rating))
+
+hands = sorted(hands, key=lambda x: x[0], reverse=True)
+
+print(hands)
 
 print(f"Result: {result}")
 
