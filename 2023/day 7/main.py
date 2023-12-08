@@ -29,7 +29,7 @@ def high_card(cards):
     
     return False
 
-def pairs_and_kind(cards):
+def pairs_kind_full_house(cards):
     card_dict = {}
 
     for card in cards:
@@ -76,7 +76,7 @@ for line in input:
     if high_card(cards):
         rating = 1
 
-    hand_pairs, kind, full_house = pairs_and_kind(cards)
+    hand_pairs, kind, full_house = pairs_kind_full_house(cards)
 
     if hand_pairs == 1:
         rating = 2
