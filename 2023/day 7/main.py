@@ -29,6 +29,22 @@ def high_card(cards):
     
     return False
 
+def pairs(cards):
+    card_dict = {}
+
+    for card in cards:
+        if card_dict.get(card):
+            card_dict[card] = card_dict.get(card) + 1
+        else:
+            card_dict[card] = 1
+
+    pairs = 0
+
+    for entry in card_dict.items():
+        if entry[1] == 2:
+            pairs += 1
+
+    return pairs
 
 print(f"Result: {result}")
 
