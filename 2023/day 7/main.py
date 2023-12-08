@@ -39,12 +39,45 @@ def pairs(cards):
             card_dict[card] = 1
 
     pairs = 0
+    three_of_a_kind = False
 
     for entry in card_dict.items():
         if entry[1] == 2:
             pairs += 1
+        
+        if entry[1] == 3:
+            three_of_a_kind = True
 
-    return pairs
+    return (pairs, three_of_a_kind)
+
+hands = []
+
+for line in input:
+    if line == "":
+        continue
+
+    cards = list(line.split(" ")[0])  
+    bid = int(line.split(" ")[1])
+
+    print(cards)
+    
+    rating = 0
+
+    if high_card(cards):
+        rating = 1
+
+    hand_pairs, three_of_a_kind = pairs(cards)
+
+    if hand_pairs == 1:
+        rating = 2
+    
+    if hand_pairs == 2:
+        rating = 3
+
+    if three_of_a_kind:
+        rating = 4
+
+    print(rating)
 
 print(f"Result: {result}")
 
