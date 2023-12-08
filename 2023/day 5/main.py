@@ -1,6 +1,6 @@
 from colorama import Back, Style
 
-file = open("input.txt", "r")
+file = open("example-input.txt", "r")
 input = file.read().split("\n")
 
 def remove_element_from_array(array, value):
@@ -82,5 +82,67 @@ print(f"Result: {result}")
 # Part 2
 print("---Part 2---")
 result = 0
+
+ids = []
+new_ids = []
+
+processing = False
+
+for i, line in enumerate(input):
+
+    if line == "":
+        processing = False
+        for id in new_ids:
+            ids.append(id)
+        
+        new_ids = []
+        
+        print(ids)
+        continue
+    
+    if i == 0:
+        range_start = None
+
+        for number in line.split(":")[1].split(" "):
+            if number == "":
+                continue
+            
+            if range_start == None:
+                range_start = int(number)
+            else:
+                for seed in range(range_start, range_start + int(number)):
+                    ids.append(seed)
+                range_start = None
+
+        print(f"{Back.BLUE}seeds{Style.RESET_ALL}")
+        continue
+
+    if processing == False and line.find("map:") >= 0:
+        processing = True
+        print(f"{Back.BLUE}{line.split(" ")[0]}{Style.RESET_ALL}")
+        continue
+
+    destination_start, source_start, length = line.split(" ")
+
+    destination_start = int(destination_start)
+    source_start = int(source_start)
+    length = int(length)
+
+    destination_end = destination_start + length - 1
+    source_end = source_start + length - 1
+
+    print(f"Destination {destination_start}-{destination_end}")
+    print(f"Source {source_start}-{source_end}")
+    
+    for id in ids:
+        if id >= source_start and id <= source_end:
+            new_id = destination_start + (id - source_start)
+            print(f"{Back.LIGHTGREEN_EX}{(id - source_start)} | {id} -> {new_id}{Style.RESET_ALL}")
+            new_ids.append(new_id)
+            ids = remove_element_from_array(ids, id)
+        else:
+            print(f"{Back.RED}{id}{Style.RESET_ALL}")
+
+result = min(ids)
 
 print(f"Result: {result}")
