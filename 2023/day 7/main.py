@@ -1,6 +1,6 @@
 from colorama import Back, Style
 
-file = open("example-input.txt", "r")
+file = open("custom-input.txt", "r")
 input = file.read().split("\n")
 
 # Part 1
@@ -29,7 +29,7 @@ def high_card(cards):
     
     return False
 
-def pairs(cards):
+def pairs_and_kind(cards):
     card_dict = {}
 
     for card in cards:
@@ -39,16 +39,26 @@ def pairs(cards):
             card_dict[card] = 1
 
     pairs = 0
-    three_of_a_kind = False
+    kind = 0
+    full_house = False
 
     for entry in card_dict.items():
         if entry[1] == 2:
             pairs += 1
         
         if entry[1] == 3:
-            three_of_a_kind = True
+            kind = 3
+        
+        if entry[1] == 4:
+            kind = 4
+        
+        if entry[1] == 5:
+            kind = 5
 
-    return (pairs, three_of_a_kind)
+    if kind == 3 and pairs == 1:
+        full_house = True
+
+    return (pairs, kind, full_house)
 
 hands = []
 
@@ -66,7 +76,7 @@ for line in input:
     if high_card(cards):
         rating = 1
 
-    hand_pairs, three_of_a_kind = pairs(cards)
+    hand_pairs, kind, full_house = pairs_and_kind(cards)
 
     if hand_pairs == 1:
         rating = 2
@@ -74,8 +84,17 @@ for line in input:
     if hand_pairs == 2:
         rating = 3
 
-    if three_of_a_kind:
+    if kind == 3:
         rating = 4
+
+    if full_house:
+        rating = 5
+
+    if kind == 4:
+        rating = 6
+
+    if kind == 5:
+        rating = 7
 
     print(rating)
 
