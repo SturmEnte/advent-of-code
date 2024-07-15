@@ -15,3 +15,8 @@ For some solutions in 2023 is `colorama` required. Run the following command to 
 ```
 pip install colorama
 ```
+
+# Repositories
+
+[GitHub](https://github.com/SturmEnte/advent-of-code)
+[GitLab](https://gitlab.com/SturmEnte/advent-of-code)
