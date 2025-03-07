@@ -29,7 +29,17 @@ print(f"Result: {result}")
 print(f"{Back.LIGHTWHITE_EX}---Part 2---{Style.RESET_ALL}")
 result = 0
 
+left = []
+right = []
 
+for line in input:
+    left.append(line.split("   ")[0])
+    right.append(line.split("   ")[1])
+
+for left_char in left:
+    for right_char in right:
+        if left_char == right_char:
+            result += int(left_char)
 
 print(f"Result: {result}")
 
