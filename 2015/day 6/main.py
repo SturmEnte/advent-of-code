@@ -63,7 +63,55 @@ print(f"Result: {result}")
 print(f"{Back.LIGHTWHITE_EX}---Part 2---{Style.RESET_ALL}")
 result = 0
 
+lights = []
 
+for i in range(1000):
+    lights.append([0] * 1000)
+
+for line in input:
+    line = line.replace("through", "")
+    line = line.replace("  ", " ")
+
+    if line.startswith("turn on"):
+        line = line.replace("turn on ", "")
+        split = line.split(" ")
+        x_start = int(split[0].split(",")[0])
+        y_start = int(split[0].split(",")[1])
+        x_end = int(split[1].split(",")[0])
+        y_end = int(split[1].split(",")[1])
+
+        for x in range(x_start, x_end + 1):
+            for y in range(y_start, y_end + 1):
+                lights[x][y] += 1
+
+    elif line.startswith("turn off"):
+        line = line.replace("turn off ", "")
+        split = line.split(" ")
+        x_start = int(split[0].split(",")[0])
+        y_start = int(split[0].split(",")[1])
+        x_end = int(split[1].split(",")[0])
+        y_end = int(split[1].split(",")[1])
+
+        for x in range(x_start, x_end + 1):
+            for y in range(y_start, y_end + 1):
+                if lights[x][y] > 0:
+                    lights[x][y] -= 1
+
+    elif line.startswith("toggle"):
+        line = line.replace("toggle ", "")
+        split = line.split(" ")
+        x_start = int(split[0].split(",")[0])
+        y_start = int(split[0].split(",")[1])
+        x_end = int(split[1].split(",")[0])
+        y_end = int(split[1].split(",")[1])
+
+        for x in range(x_start, x_end + 1):
+            for y in range(y_start, y_end + 1):
+                lights[x][y] += 2
+
+for x_line in lights:
+    for light in x_line:
+        result += light
 
 print(f"Result: {result}")
 
