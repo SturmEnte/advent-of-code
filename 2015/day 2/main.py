@@ -25,7 +25,17 @@ print(f"Result: {result}")
 print(f"{Back.LIGHTWHITE_EX}---Part 2---{Style.RESET_ALL}")
 result = 0
 
+for present_dimensions in input:
+    dimensions = present_dimensions.split("x")
+    l = int(dimensions[0])
+    w = int(dimensions[1])
+    h = int(dimensions[2])
 
+    result += l*w*h
+
+    sides = [l, w, h]
+    sides.remove(max(sides))
+    result += 2*sides[0] + 2*sides[1]
 
 print(f"Result: {result}")
 
