@@ -96,7 +96,9 @@ def check_safety(levels, already_checked):
 
     if not safe and not already_checked:
         print(f"Problem at {problem} with {levels[problem]}")
+        print("Before", levels)
         levels.pop(problem)
+        print("After", levels)
         safe = check_safety(levels, True)
 
     return safe
