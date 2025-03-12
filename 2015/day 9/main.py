@@ -71,7 +71,26 @@ print(f"Result: {result}")
 print(f"{Back.LIGHTWHITE_EX}---Part 2---{Style.RESET_ALL}")
 result = 0
 
+longest_distance = 0
+longest_path = None
 
+for path in possible_paths:
+    dist =  distance(path)
+    if longest_distance < dist:
+        longest_distance = dist
+        longest_path = path
+
+path_string = ""
+
+for city in longest_path:
+    if path_string != "":
+        path_string += " -> "
+    
+    path_string += indexCityTable[city]
+
+print(path_string)
+
+result = longest_distance
 
 print(f"Result: {result}")
 
