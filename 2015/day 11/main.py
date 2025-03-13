@@ -55,7 +55,12 @@ print(f"Result: {result}")
 print(f"{Back.LIGHTWHITE_EX}---Part 2---{Style.RESET_ALL}")
 result = 0
 
+increment_password(len(password) - 1)
 
+while not is_password_valid(password):
+    increment_password(len(password) - 1)
+
+result = "".join(password)
 
 print(f"Result: {result}")
 
