@@ -1,80 +1,102 @@
-file = open("example.txt", "r")
-input = file.read()
+from colorama import Back, Style
+from re import findall
 
-MIN_X = -2
-MIN_Y = 0
-def translate(x, y):
-    return (x - MIN_X, y - MIN_Y)
+class Dynamic2DArray:
+    min_row = 0
+    max_row = 0
+    min_col = 0
+    max_col = 0
 
-def print_map():
-    for x in range(len(map)):
-        line = ""
-        for y in range(len(map[0])):
-            if map[x][y] == 0:
-                line += "."
-            if map[x][y] == 1:
-                line += "S"
-            if map[x][y] == 2:
-                line += "B"
-            if map[x][y] == 3:
-                line += "#"
-        height = str(translate(0, y)[1])
-        if len(height) < 2:
-            height = "0" + height
-        print(height ,"|", line, "|")
+    def __init__(self, default_value=None):
+        self.data = {}
+        self.default_value = default_value
 
-map = []
+    def __getitem__(self, key):
+        row, col = key
+        return self.data.get((row, col), self.default_value)
 
-for x in range(50):
-    map.append([])
-    for _ in range(50):
-        map[x].append(0)
+    def __setitem__(self, key, value):
+        row, col = key
+        
+        if row < self.min_row:
+            self.min_row = row
 
-for line in input.split("\n"):
-    line = line.split()
-    sx = int(line[2].split("=")[1].replace(",", ""))
-    sy = int(line[3].split("=")[1].replace(":", ""))
+        if row > self.max_row:
+            self.max_row = row
 
-    bx = int(line[8].split("=")[1].replace(",", ""))
-    by = int(line[9].split("=")[1])
-    #print(sx, sy, bx, by)
+        if col < self.min_col:
+            self.min_col = col
 
-    s = translate(sx, sy)
-    b = translate(bx, by)
-    map[s[0]][s[1]] = 1
-    map[b[0]][b[1]] = 2
+        if col > self.max_col:
+            self.max_col = col
 
-    sx = s[0]
-    sy = s[1]
+        self.data[(row, col)] = value
 
-    bx = b[0]
-    by = b[1]
+file = open("input.txt", "r")
+input = file.read().split("\n")
 
-    difference = 0
-    if sx > bx:
-        difference += sx - bx
-    else:
-        difference += bx - sx
+# Part 1
+print(f"{Back.LIGHTWHITE_EX}---Part 1---{Style.RESET_ALL}")
 
-    if sy > by:
-        difference += sy - by
-    else:
-        difference += by - sy
-    
-    print(translate(sx, sy), difference)
+TARGET_LINE = 10
 
-    x = 0 - difference
-    y = 0 - difference
+result = 0
 
-    while x < difference:
-        t = translate(sx + x, sy)
-        if map[t[0]][t[1]] == 0:
-            map[t[0]][t[1]] = 3
-        x += 1
-    while y < difference:
-        t = translate(sx, sy + y)
-        if map[t[0]][t[1]] == 0:
-            map[t[0]][t[1]] = 3
-        y += 1
+map = Dynamic2DArray(default_value=".")
+sensors = []
 
-print_map()
+for line in input:
+    # Extract the numbers
+    raw_values = findall(r"x=(-?\d+), y=(-?\d+)",line)
+    sensor_cords = (int(raw_values[0][0]), int(raw_values[0][1]))
+    beacon_cords = (int(raw_values[1][0]), int(raw_values[1][1]))
+
+    # Apply sensor and beacon position to the map
+    map[sensor_cords[0], sensor_cords[1]] = "S"
+    map[beacon_cords[0], beacon_cords[1]] = "B"
+
+
+    # Determine distance between the sensor and beacon (x distance + y distance)
+    distance = abs(sensor_cords[0] - beacon_cords[0]) + abs(sensor_cords[1] - beacon_cords[1])
+
+    # Mark the clean area around the sensor
+    for x in range(0, distance + 1):
+
+        for y in range(0, distance + 1 - x):
+            if map[sensor_cords[0] + x, sensor_cords[1] + y] == ".":
+                map[sensor_cords[0] + x, sensor_cords[1] + y] = "#"
+
+            if map[sensor_cords[0] - x, sensor_cords[1] - y] == ".":
+                map[sensor_cords[0] - x, sensor_cords[1] - y] = "#"
+
+            if map[sensor_cords[0] + x, sensor_cords[1] - y] == ".":
+                map[sensor_cords[0] + x, sensor_cords[1] - y] = "#"
+
+            if map[sensor_cords[0] - x, sensor_cords[1] + y] == ".":
+                map[sensor_cords[0] - x, sensor_cords[1] + y] = "#"
+
+print(map.min_col, map.min_row, map.max_col, map.max_row)
+
+# Print the map
+# for y in range(map.min_col, map.max_col + 1):
+#     line = ""
+#     for x in range(map.min_row, map.max_row + 1):
+#         line += map[x, y]
+
+#     print(line)
+
+for x in range(map.min_row, map.max_row + 1):
+    if map[x, TARGET_LINE] == "#":
+        result += 1
+
+print(f"Result: {result}")
+
+# Part 2
+print(f"{Back.LIGHTWHITE_EX}---Part 2---{Style.RESET_ALL}")
+result = 0
+
+
+
+print(f"Result: {result}")
+
+file.close()
