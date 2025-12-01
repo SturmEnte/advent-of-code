@@ -5,7 +5,7 @@ input = file.read().split("\n")
 
 # Part 1
 #print(f"{Back.LIGHTWHITE_EX}---Part 1---{Style.RESET_ALL}")
-print("---Part 1---")
+print("---Part 2---")
 result = 0
 
 position = 50
@@ -15,18 +15,21 @@ for line in input:
     moves = int(line[1:])
 
     if direction == "L":
-        position -= moves
+        direction = -1
     else:
-        position += moves
+        direction = 1
 
-    while position > 99:
-        position -= 100
+    for i in range(moves):
 
-    while position < 0:
-        position += 100
+        position += direction
 
-    if position == 0:
-        result += 1
+        if position > 99:
+            position = 0
+        elif position < 0:
+            position = 99
+
+        if position == 0:
+            result += 1
 
     print(position)
 
