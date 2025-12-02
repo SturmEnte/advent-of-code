@@ -22,10 +22,13 @@ for ids in input:
             print(i, "valid")
             continue
         
+        # If the first half and second half of a string dividable by 2 are not the same
+        # Then it does not have a repeating pattern
         if i_str[:length // 2] != i_str[length // 2:]:
             print(i, "valid")
             continue
         
+        # If both of the checks above are false, then it is a string with a repeating pattern
         print(i, "invalid")
 
         result += i
