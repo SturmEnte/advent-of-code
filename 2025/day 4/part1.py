@@ -46,7 +46,7 @@ for y in range(1, len(grid) - 1):
             result += 1
             grid[y][x] = 2
 
-# Pretty field
+# Pretty print field
 for y in grid:
     line = ""
     for x in y:
