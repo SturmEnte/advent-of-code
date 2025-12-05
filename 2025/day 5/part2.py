@@ -15,7 +15,10 @@ for line in input:
     id_ranges.append((start_id, end_id))
 
 # Combine id ranges
+# Iterating through the list over and over again
 def combine_ranges(ranges):
+    # On each iteration check if there are two ranges, that can be combined
+    # If two ranges are found, stop checking for more
     combineable = None
     for i in range(len(ranges)):
         for j in range(len(ranges)):
@@ -33,6 +36,7 @@ def combine_ranges(ranges):
                 combineable = (i, j)
                 break
 
+    # If there are no more combineable ranges, then return the current ranges
     if combineable == None:
         return ranges
 
